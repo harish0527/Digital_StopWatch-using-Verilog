@@ -1,0 +1,21 @@
+module stopwatch_tb;
+reg clk;
+reg rst;
+reg [1:0]button;
+wire [15:0]tout;
+
+digital_stopwatch d1(clk,rst,button,tout);
+
+initial 
+begin
+clk <= 1;rst <= 1;button <= 0;
+#10 rst <= 0;button <= 2'b00;
+#50 rst <= 0;button <= 2'b01;
+#5 rst <= 0;button <= 2'b10;
+#10 rst <= 0;button <= 2'b00;
+end
+always #5 clk <= ~clk;
+initial
+$monitor("tout = %d ",tout);
+
+endmodule
