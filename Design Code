@@ -1,0 +1,41 @@
+module digital_stopwatch(
+input clk,
+input rst,
+input [1:0]button,
+output reg[15:0]tout
+);
+
+localparam START = 2'b00;
+localparam STOP = 2'b01;
+localparam RESET = 2'b10;
+
+reg [15:0]counter;
+
+always @(posedge clk or posedge rst)begin
+if(rst)begin
+counter <= 0;
+tout <= 0;
+end
+else
+begin
+case(button)
+      START:begin
+           counter <= counter + 1;
+           tout <= counter;
+           end
+      STOP:begin
+          counter <= counter;
+          tout <= counter;
+          end
+      RESET:begin
+           counter <= 0;
+           tout <= 0;
+           end
+      default:begin
+           counter <= 0;
+           tout <= 0;
+           end 
+endcase
+end           
+end
+endmodule
